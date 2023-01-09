@@ -30,3 +30,4 @@ It will appear in the "Selected lights" box. If you selected lights in the wrong
 ![image](https://user-images.githubusercontent.com/4045393/211425014-501d761b-da84-4674-83e6-ccbefbc48f2f.png)
 
 If devices will stay offline, please switch them off, wait a few sec. and turn them on again. They are also offline if you are in the wrong Wifi!
+When this not helps, restart the app.
