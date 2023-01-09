@@ -31,3 +31,8 @@ It will appear in the "Selected lights" box. If you selected lights in the wrong
 
 If devices will stay offline, please switch them off, wait a few sec. and turn them on again. They are also offline if you are in the wrong Wifi!
 When this not helps, restart the app.
+
+Demo: https://www.youtube.com/watch?v=R1E-YyNcE8s
+
+I use it in combination with an Echo Dot, an Line-In Cable and the microphone jack.
+The Echo Dot is in a Multi-Room Music group.
