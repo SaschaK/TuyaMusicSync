@@ -1,4 +1,5 @@
 # TuyaMusicSync
+ONLY FOR PRIVATE USE! No commercial use allowed!
 Music Sync WPF Application with Un4seen BASS.dll
 
 This application uses code fragments of the following article from CodeProject.com written by webmaster442 (pieces of analyzer.cs).
