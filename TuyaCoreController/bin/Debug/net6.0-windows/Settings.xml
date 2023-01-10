@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Devices />
+  <UseTuyaCloud>true</UseTuyaCloud>
+  <TuyaRegion>0</TuyaRegion>
+  <CountOfColors>0</CountOfColors>
+  <SelectedLightIds />
+  <ColorStrings />
+  <Delay>300</Delay>
+  <SoundDevice>0</SoundDevice>
+</Configuration>
