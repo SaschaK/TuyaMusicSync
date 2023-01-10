@@ -16,7 +16,7 @@ https://github.com/ClusterM/tuyanet/#how-to-obtain-local-key
 Currently it's not possible to use the application w/o a cloud connection, because the local key is missing in the Broadcast provided by the lights.
 Please take care that your computer has to be in the same Wifi as the lights are, otherwise the broadcast can't be retrieved.
 
-After you created the developer account and added your SmartLife account (if needed), set up the Tuya Account Region, Access ID, Access secret and any of your device IDs on the left side in the application.
+After you created the developer account and added your SmartLife account (if needed), set up the Tuya Account Region, Access ID, Access secret and any of your device IDs on the left side in the application. You have to restart the application after you type in your credentials.
 
 Choose one of the available Sound devices (output devices). If you want to use a microphone input, change the microphone settings as mentioned on the following link:
 https://www.addictivetips.com/windows-tips/output-mic-sound-to-speakers-windows-10
