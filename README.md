@@ -35,5 +35,5 @@ When this not helps, restart the app.
 
 Demo: https://www.youtube.com/watch?v=R1E-YyNcE8s
 
-I use it in combination with an Echo Dot, an Line-In Cable and the microphone jack.
+I use it in combination with an Echo Dot, a Line-In Cable and my laptop's microphone jack .
 The Echo Dot is in a Multi-Room Music group.
