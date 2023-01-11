@@ -40,3 +40,6 @@ Demo: https://www.youtube.com/watch?v=R1E-YyNcE8s
 
 I use it in combination with an Echo Dot, a Line-In Cable and my laptop's microphone jack .
 The Echo Dot is in a Multi-Room Music group.
+
+If you like it and you want to spend my next coffee, thank you so much
+<a href="https://www.buymeacoffee.com/saschak89" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
