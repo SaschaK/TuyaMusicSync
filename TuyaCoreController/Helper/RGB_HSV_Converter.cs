@@ -6,9 +6,19 @@ using System.Linq;
 
 namespace TuyaCoreController
 {
-    // manually translated python lib to convert the colors correctly
+    /// <summary>
+    /// Manually translated python lib to convert the colors correctly
+    /// https://github.com/python/cpython/blob/3.11/Lib/colorsys.py
+    /// </summary>
     public static class RGB_HSV_Converter
     {
+        /// <summary>
+        /// Converts color value to hue, saturation and value (HSV) 
+        /// </summary>
+        /// <param name="color">Input color</param>
+        /// <param name="hue">output Hue</param>
+        /// <param name="saturation">output Saturation</param>
+        /// <param name="value">output value</param>
         public static void ColorToHSV(Color color, out double hue, out double saturation, out double value)
         {
             int max = Math.Max(color.R, Math.Max(color.G, color.B));
@@ -19,6 +29,13 @@ namespace TuyaCoreController
             value = max / 255d;
         }
 
+        /// <summary>
+        /// Converts HSV value to color value
+        /// </summary>
+        /// <param name="hue">Hue value</param>
+        /// <param name="saturation">Saturation value</param>
+        /// <param name="value">Value value</param>
+        /// <returns>Color value</returns>
         public static Color ColorFromHSV(double hue, double saturation, double value)
         {
             int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
@@ -44,6 +61,14 @@ namespace TuyaCoreController
                 return Color.FromArgb(255, v, p, q);
         }
 
+        /// <summary>
+        /// Converts hexvalue to HSV value
+        /// </summary>
+        /// <param name="hexvalue">input HEX value</param>
+        /// <param name="h">output Hue</param>
+        /// <param name="s">output Saturation</param>
+        /// <param name="v">output Value</param>
+        /// <param name="bulb">input bulb version (A = old, B = new)</param>
         public static void hexvalue_to_hsv(String hexvalue, out double h, out double s, out double v, string bulb = "A")
         {
             h = 0;
@@ -64,10 +89,18 @@ namespace TuyaCoreController
             }
         }
 
-        public static void hexvalue_to_rgb(string hexvalue, string bulb = "A")
+        /// <summary>
+        /// Converts hexvalue to RGB value
+        /// </summary>
+        /// <param name="hexvalue">input HEX value</param>
+        /// <param name="r">output Red value</param>
+        /// <param name="g">output Green value</param>
+        /// <param name="b">output Blue value</param>
+        /// <param name="bulb">input bulb version (A = old, B = new)</param>
+        public static void hexvalue_to_rgb(string hexvalue, out int r, out int g, out int b, string bulb = "A")
         {
-
-            int r, g, b;
+            r = 0; g = 0; b = 0;
+            //int r, g, b;
             double h, s, v;
             if (bulb == "A")
             {
@@ -89,6 +122,13 @@ namespace TuyaCoreController
             }
         }
 
+        /// <summary>
+        /// Converts HSV value to RGB double array
+        /// </summary>
+        /// <param name="h">input Hue</param>
+        /// <param name="s">input Saturation</param>
+        /// <param name="v">input Value</param>
+        /// <returns>Array double[3] with RGB values</returns>
         public static double[] hsv_to_rgb(double h, double s, double v)
         {
             if (s == 0.0)
@@ -116,6 +156,13 @@ namespace TuyaCoreController
             return new double[3];
         }
 
+        /// <summary>
+        /// Convert RGB value to HSV value
+        /// </summary>
+        /// <param name="r">input Red value</param>
+        /// <param name="g">input Green value</param>
+        /// <param name="b">input Blue value</param>
+        /// <returns>Array double[3] with HSV values</returns>
         public static double[] rgb_to_hsv(double r, double g, double b)
         {
             double h, s, v;
@@ -142,7 +189,14 @@ namespace TuyaCoreController
             return new double[3] { h, s, v };
         }
 
-
+        /// <summary>
+        /// Convert RGB value to HEX value
+        /// </summary>
+        /// <param name="r">input Red value</param>
+        /// <param name="g">input Green value</param>
+        /// <param name="b">input Blue value</param>
+        /// <param name="bulb">input bulb version (A = old, B = new)</param>
+        /// <returns>HEX value as String</returns>
         public static String rgb_to_hexvalue(int r, int g, int b, String bulb = "A")
         {
             var rgb = new int[3] { r, g, b };
@@ -203,6 +257,6 @@ namespace TuyaCoreController
 
             }
             return hexvalue;
-    }
+        }
     }
 }

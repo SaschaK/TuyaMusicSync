@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Ports;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
 using TuyaCoreController;
 using TuyaCoreController.ViewModel;
 using Un4seen.Bass;
-using Un4seen.Bass.Misc;
 using Un4seen.BassWasapi;
 
 namespace AudioSpectrum
@@ -25,8 +22,6 @@ namespace AudioSpectrum
         private int _lastlevel;             //last output level
         private int _hanctr;                //last output level counter
         private List<byte> _spectrumdata;   //spectrum data buffer   //bpm counter
-        //private Spectrum _spectrum;         //spectrum dispay control
-        //private ComboBox _devicelist;       //device list
         List<String> devices = new List<String>();
         private bool _initialized;          //initialized flag
         private int devindex;               //used device index
@@ -44,25 +39,11 @@ namespace AudioSpectrum
             _t.Tick += _t_Tick;
             _t.Interval = TimeSpan.FromMilliseconds(25); //40hz refresh rate
             _t.IsEnabled = false;
-            //_l = left;
-            //_r = right;
-            //_l.Minimum = 0;
-            //_r.Minimum = 0;
-            //_r.Maximum = ushort.MaxValue;
-            //_l.Maximum = ushort.MaxValue;
             _process = new WASAPIPROC(Process);
             _spectrumdata = new List<byte>();
-            //_spectrum = spectrum;
-            //_devicelist = devicelist;
             _initialized = false;
             Init();
         }
-
-        // Serial port for arduino output
-        //public SerialPort Serial { get; set; }
-
-        // flag for display enable
-        public bool DisplayEnable { get; set; }
 
         //flag for enabling and disabling program functionality
         public bool Enable
@@ -128,7 +109,6 @@ namespace AudioSpectrum
                 if (y > 255) y = 255;
                 if (y < 0) y = 0;
                 _spectrumdata.Add((byte)y);
-                //Console.Write("{0, 3} ", y);
             }
 
             OwnDataContext.Instance.Spectrum.Clear();
@@ -137,9 +117,7 @@ namespace AudioSpectrum
                 OwnDataContext.Instance.Spectrum.Add(item);
             }
             TuyaHelper.SetSpectrum(_spectrumdata);
-            //MainWindow.Instance.SetSpectrum(_spectrumdata);
             _spectrumdata.Clear();
-
 
             int level = BassWasapi.BASS_WASAPI_GetLevel();
             if (level == _lastlevel && level != 0) _hanctr++;

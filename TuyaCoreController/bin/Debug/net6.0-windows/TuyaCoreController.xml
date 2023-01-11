@@ -1,0 +1,926 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TuyaCoreController</name>
+    </assembly>
+    <members>
+        <member name="T:TuyaCoreController.App">
+            <summary>
+            Interaction logic for App.xaml
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.App.Config">
+            <summary>
+            Configuration
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.App.#ctor">
+            <summary>
+            Construtor
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.App.GetDevices">
+            <summary>
+            Finds light devices in Tuya cloud and determines their IP-Addresses
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TuyaCoreController.App.Scanner_OnNewDeviceInfoReceived(System.Object,com.clusterrr.TuyaNet.TuyaDeviceScanInfo)">
+            <summary>
+            Gets the light device IP from background Thread
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:TuyaCoreController.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:TuyaCoreController.Commands.GenerateColorPalletCommand">
+            <summary>
+            Command to generate a pallet of colors
+            Can always executed
+            Generates a list of colors from 255, 0, 0 to 0,0,255
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.Commands.GenerateColorPalletCommand.CanExecuteChanged">
+            <summary>
+            Not in use
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.GenerateColorPalletCommand.CanExecute(System.Object)">
+            <summary>
+            Always true
+            </summary>
+            <param name="parameter"></param>
+            <returns>always true</returns>
+        </member>
+        <member name="M:TuyaCoreController.Commands.GenerateColorPalletCommand.Execute(System.Object)">
+            <summary>
+            Execute method
+            Generates a color pallet
+            </summary>
+            <param name="parameter">Not in use</param>
+        </member>
+        <member name="T:TuyaCoreController.Commands.RetrieveLightsCommand">
+            <summary>
+            Used in V0.1 - No more needed
+            Replaced by PropertyChanged event and OnlineStatusEnum in class OwnTuyaDevice
+            Retrieve online lights and refresh CloudLights Collection in the DataContext
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.Commands.RetrieveLightsCommand.CanExecuteChanged">
+            <summary>
+            CanExecuteChanged event
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.RetrieveLightsCommand.CanExecute(System.Object)">
+            <summary>
+            Default ICommand method
+            </summary>
+            <param name="parameter"></param>
+            <returns>if the command is executeable or not</returns>
+        </member>
+        <member name="M:TuyaCoreController.Commands.RetrieveLightsCommand.ChangeExecuteability(System.Boolean)">
+            <summary>
+            Can not be executed when the online lights detection in already running
+            </summary>
+            <param name="executeable">Can the command be executed?</param>
+        </member>
+        <member name="M:TuyaCoreController.Commands.RetrieveLightsCommand.Execute(System.Object)">
+            <summary>
+            Execute method
+            Change the command executability and detect online lights and the bulb version
+            </summary>
+            <param name="parameter">Not in use</param>
+        </member>
+        <member name="T:TuyaCoreController.Commands.SaveSelectedLightsCommand">
+            <summary>
+            Save selected lights command
+            Always executeable
+            Clears the selected lights in Settings.xml, add the currently selected lights and override the Settings.xml
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.Commands.SaveSelectedLightsCommand.CanExecuteChanged">
+            <summary>
+            Not in use
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SaveSelectedLightsCommand.CanExecute(System.Object)">
+            <summary>
+            Always true
+            </summary>
+            <param name="parameter">Not in use</param>
+            <returns>always true</returns>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SaveSelectedLightsCommand.Execute(System.Object)">
+            <summary>
+            Execute method
+            Gets the config from Configuration.Instance property, clear the SelectedLights collection,
+            adds the currently selected lights and save the configuration w/o changing other properties
+            </summary>
+            <param name="parameter">Not in use</param>
+        </member>
+        <member name="T:TuyaCoreController.Commands.SaveSettingsCommand">
+            <summary>
+            Save settings command
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.Commands.SaveSettingsCommand.CanExecuteChanged">
+            <summary>
+            Not in use
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SaveSettingsCommand.CanExecute(System.Object)">
+            <summary>
+            Always true
+            </summary>
+            <param name="parameter">Not in use</param>
+            <returns>Always true</returns>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SaveSettingsCommand.Execute(System.Object)">
+            <summary>
+            Gets the current config from Configuration.Instance property, change the config properties
+            to the current values from the DataContext and saves the configuration including the selected lights
+            </summary>
+            <param name="parameter">Not in use</param>
+        </member>
+        <member name="T:TuyaCoreController.Commands.SelectLightCommand">
+            <summary>
+            Select light command
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.Commands.SelectLightCommand.CanExecuteChanged">
+            <summary>
+            Not in use
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SelectLightCommand.CanExecute(System.Object)">
+            <summary>
+            Always true
+            </summary>
+            <param name="parameter"></param>
+            <returns>always true</returns>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SelectLightCommand.Execute(System.Object)">
+            <summary>
+            Adds the selected lights from the "cloud / local lights" list to the selected lights
+            </summary>
+            <param name="parameter">Selected light</param>
+        </member>
+        <member name="T:TuyaCoreController.Commands.SelItemDeleteCommand">
+            <summary>
+            Delete selected light command
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.Commands.SelItemDeleteCommand.CanExecuteChanged">
+            <summary>
+            Not in use
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SelItemDeleteCommand.CanExecute(System.Object)">
+            <summary>
+            Always true
+            </summary>
+            <param name="parameter"></param>
+            <returns>always true</returns>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SelItemDeleteCommand.Execute(System.Object)">
+            <summary>
+            Removes the currently selected light from the selected lights collection in the DataContext
+            </summary>
+            <param name="parameter">Not in use</param>
+        </member>
+        <member name="T:TuyaCoreController.Commands.SelItemDownwardsCommand">
+            <summary>
+            Selected item downwards command
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.Commands.SelItemDownwardsCommand.CanExecuteChanged">
+            <summary>
+            Not in use
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SelItemDownwardsCommand.CanExecute(System.Object)">
+            <summary>
+            Always true
+            </summary>
+            <param name="parameter"></param>
+            <returns>always true</returns>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SelItemDownwardsCommand.Execute(System.Object)">
+            <summary>
+            Move the currently selected item from the selected lights collection downwards (SelectedIdxSelLights + 1)
+            </summary>
+            <param name="parameter">Not in use</param>
+        </member>
+        <member name="T:TuyaCoreController.Commands.SelItemUpwardsCommand">
+            <summary>
+            Selected item upwards command
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.Commands.SelItemUpwardsCommand.CanExecuteChanged">
+            <summary>
+            Not in use
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SelItemUpwardsCommand.CanExecute(System.Object)">
+            <summary>
+            Always true
+            </summary>
+            <param name="parameter"></param>
+            <returns>always true</returns>
+        </member>
+        <member name="M:TuyaCoreController.Commands.SelItemUpwardsCommand.Execute(System.Object)">
+            <summary>
+            Move the currently selected item from the selected lights collection upwards (SelectedIdxSelLights - 1)
+            </summary>
+            <param name="parameter">Not in use</param>
+        </member>
+        <member name="T:TuyaCoreController.Commands.StartLightShowCommand">
+            <summary>
+            Start light show command
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.Commands.StartLightShowCommand.CanExecuteChanged">
+            <summary>
+            CanExecuteChanged event
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.StartLightShowCommand.ChangeExecuteable">
+            <summary>
+            Reverse the executeability of the command and triggers the event handler
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.StartLightShowCommand.CanExecute(System.Object)">
+            <summary>
+            Returns the executeability
+            </summary>
+            <param name="parameter"></param>
+            <returns>if the command is executeable</returns>
+        </member>
+        <member name="M:TuyaCoreController.Commands.StartLightShowCommand.Execute(System.Object)">
+            <summary>
+            Execute method
+            Sets the AppState property in the DataContext, initialize all selected lights (turn them on)
+            and sets them to colour-mode. Audio spectrum analyzer will be initialized and enabled
+            </summary>
+            <param name="parameter">Not in use</param>
+        </member>
+        <member name="T:TuyaCoreController.Commands.StopLightShowCommand">
+            <summary>
+            Stop the light show command
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.Commands.StopLightShowCommand.CanExecuteChanged">
+            <summary>
+            CanExecuteChanged event
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.StopLightShowCommand.ChangeExecuteable">
+            <summary>
+            Reverse the executeability of the command and triggers the event handler
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Commands.StopLightShowCommand.CanExecute(System.Object)">
+            <summary>
+            Returns the executeability
+            </summary>
+            <param name="parameter"></param>
+            <returns>if the command is executeable</returns>
+        </member>
+        <member name="M:TuyaCoreController.Commands.StopLightShowCommand.Execute(System.Object)">
+            <summary>
+            Execute method
+            Sets the AppState property in the DataContext. Disabling the Audio spectrum analyzer and
+            sets all selected lights to white-mode
+            </summary>
+            <param name="parameter">Not in use</param>
+        </member>
+        <member name="T:TuyaCoreController.Converter.ByteToIntConverter">
+            <summary>
+            Converts the Audio spectrum byte value to an integer value
+            Used by the Audio-Input progressbars to show the audio spectrum
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Converter.ByteToIntConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the byte value to an integer value
+            </summary>
+            <param name="value">byte value</param>
+            <param name="targetType">Integer</param>
+            <param name="parameter">Not in use</param>
+            <param name="culture">Not in use</param>
+            <returns></returns>
+        </member>
+        <member name="M:TuyaCoreController.Converter.ByteToIntConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            ConvertBack method - Returns always 0
+            </summary>
+            <param name="value">Not in use</param>
+            <param name="targetType">Not in use</param>
+            <param name="parameter">Not in use</param>
+            <param name="culture">Not in use</param>
+            <returns>always 0</returns>
+        </member>
+        <member name="T:TuyaCoreController.Converter.ColorNameConverter">
+            <summary>
+            Converts the Color Text value to a System.Drawing.Color value
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Converter.ColorNameConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Convert the color text value to an useable System.Drawing.Color value
+            </summary>
+            <param name="value">Text value</param>
+            <param name="targetType">Not in use</param>
+            <param name="parameter">Not in use</param>
+            <param name="culture">Not in use</param>
+            <returns>Syste.Drawing.Color value</returns>
+        </member>
+        <member name="M:TuyaCoreController.Converter.ColorNameConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            ConvertBack method - Returns always null
+            </summary>
+            <param name="value">Not in use</param>
+            <param name="targetType">Not in use</param>
+            <param name="parameter">Not in use</param>
+            <param name="culture">Not in use</param>
+            <returns>always null</returns>
+            <exception cref="T:System.NullReferenceException"></exception>
+        </member>
+        <member name="T:TuyaCoreController.Converter.ColorToSolidBrushConverter">
+            <summary>
+            Converts color value to a SolidBrush value
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Converter.ColorToSolidBrushConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Uses a color value to create a SolidBrush value to show the current light color on the gui
+            </summary>
+            <param name="value">Color value</param>
+            <param name="targetType">SolidBrush</param>
+            <param name="parameter">Not in use</param>
+            <param name="culture">Not in use</param>
+            <returns>SolidBrush value</returns>
+        </member>
+        <member name="M:TuyaCoreController.Converter.ColorToSolidBrushConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            ConvertBack method - Always returns null
+            </summary>
+            <param name="value">Not in use</param>
+            <param name="targetType">Not in use</param>
+            <param name="parameter">Not in use</param>
+            <param name="culture">Not in use</param>
+            <returns>Always null</returns>
+        </member>
+        <member name="T:TuyaCoreController.Converter.LastColorToSolidBrushConverter">
+            <summary>
+            Converts System.Drawing.Color to a SolidBrush value
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Converter.LastColorToSolidBrushConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts System.Drawing.Color to a SolidBrush value for the useage in the gui (display lights LastColor property)
+            </summary>
+            <param name="value">LastColor (System.Drawing.Color)</param>
+            <param name="targetType">SolidBrush</param>
+            <param name="parameter">Not in use</param>
+            <param name="culture">Not in use</param>
+            <returns>SolidBrush value</returns>
+        </member>
+        <member name="M:TuyaCoreController.Converter.LastColorToSolidBrushConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            ConvertBack method - Returns always null
+            </summary>
+            <param name="value">Not in use</param>
+            <param name="targetType">Not in use</param>
+            <param name="parameter">Not in use</param>
+            <param name="culture">Not in use</param>
+            <returns>always null</returns>
+        </member>
+        <member name="T:TuyaCoreController.Enums.OnlineState">
+            <summary>
+            Device online status Enum
+            </summary>
+        </member>
+        <member name="F:TuyaCoreController.Enums.OnlineState.Unknown">
+            <summary>
+            Unknown state
+            </summary>
+        </member>
+        <member name="F:TuyaCoreController.Enums.OnlineState.Offline">
+            <summary>
+            Offline state
+            </summary>
+        </member>
+        <member name="F:TuyaCoreController.Enums.OnlineState.Online">
+            <summary>
+            Online state
+            </summary>
+        </member>
+        <member name="T:TuyaCoreController.RGB_HSV_Converter">
+            <summary>
+            Manually translated python lib to convert the colors correctly
+            https://github.com/python/cpython/blob/3.11/Lib/colorsys.py
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.RGB_HSV_Converter.ColorToHSV(System.Drawing.Color,System.Double@,System.Double@,System.Double@)">
+            <summary>
+            Converts color value to hue, saturation and value (HSV) 
+            </summary>
+            <param name="color">Input color</param>
+            <param name="hue">output Hue</param>
+            <param name="saturation">output Saturation</param>
+            <param name="value">output value</param>
+        </member>
+        <member name="M:TuyaCoreController.RGB_HSV_Converter.ColorFromHSV(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSV value to color value
+            </summary>
+            <param name="hue">Hue value</param>
+            <param name="saturation">Saturation value</param>
+            <param name="value">Value value</param>
+            <returns>Color value</returns>
+        </member>
+        <member name="M:TuyaCoreController.RGB_HSV_Converter.hexvalue_to_hsv(System.String,System.Double@,System.Double@,System.Double@,System.String)">
+            <summary>
+            Converts hexvalue to HSV value
+            </summary>
+            <param name="hexvalue">input HEX value</param>
+            <param name="h">output Hue</param>
+            <param name="s">output Saturation</param>
+            <param name="v">output Value</param>
+            <param name="bulb">input bulb version (A = old, B = new)</param>
+        </member>
+        <member name="M:TuyaCoreController.RGB_HSV_Converter.hexvalue_to_rgb(System.String,System.Int32@,System.Int32@,System.Int32@,System.String)">
+            <summary>
+            Converts hexvalue to RGB value
+            </summary>
+            <param name="hexvalue">input HEX value</param>
+            <param name="r">output Red value</param>
+            <param name="g">output Green value</param>
+            <param name="b">output Blue value</param>
+            <param name="bulb">input bulb version (A = old, B = new)</param>
+        </member>
+        <member name="M:TuyaCoreController.RGB_HSV_Converter.hsv_to_rgb(System.Double,System.Double,System.Double)">
+            <summary>
+            Converts HSV value to RGB double array
+            </summary>
+            <param name="h">input Hue</param>
+            <param name="s">input Saturation</param>
+            <param name="v">input Value</param>
+            <returns>Array double[3] with RGB values</returns>
+        </member>
+        <member name="M:TuyaCoreController.RGB_HSV_Converter.rgb_to_hsv(System.Double,System.Double,System.Double)">
+            <summary>
+            Convert RGB value to HSV value
+            </summary>
+            <param name="r">input Red value</param>
+            <param name="g">input Green value</param>
+            <param name="b">input Blue value</param>
+            <returns>Array double[3] with HSV values</returns>
+        </member>
+        <member name="M:TuyaCoreController.RGB_HSV_Converter.rgb_to_hexvalue(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Convert RGB value to HEX value
+            </summary>
+            <param name="r">input Red value</param>
+            <param name="g">input Green value</param>
+            <param name="b">input Blue value</param>
+            <param name="bulb">input bulb version (A = old, B = new)</param>
+            <returns>HEX value as String</returns>
+        </member>
+        <member name="T:TuyaCoreController.OwnTuyaDevice">
+            <summary>
+            Device class for Tuya light devices
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.IP">
+            <summary>
+            IP-Address as String (local value from the broadcast)
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.DeviceId">
+            <summary>
+            Tuya Device Id (cloud value)
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.LocalKey">
+            <summary>
+            Local Key (cloud value)
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.GwId">
+            <summary>
+            Gw Id (cloud value)
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.Version">
+            <summary>
+            Version (cloud value)
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.BulbVersion">
+            <summary>
+            Bulb version (detected by device DPS)
+            </summary>
+        </member>
+        <member name="F:TuyaCoreController.OwnTuyaDevice.name">
+            <summary>
+            Device Name field
+            </summary>
+        </member>
+        <member name="F:TuyaCoreController.OwnTuyaDevice.state">
+            <summary>
+            Online state field
+            </summary>
+        </member>
+        <member name="F:TuyaCoreController.OwnTuyaDevice.lastColor">
+            <summary>
+            LastColor field
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.Name">
+            <summary>
+            Name property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.State">
+            <summary>
+            Online state property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.LastColor">
+            <summary>
+            Last Color property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.Connection">
+            <summary>
+            Connection property to allow a permanent connection to the device
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.OwnTuyaDevice.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="ip">IP-Address</param>
+            <param name="deviceId">Device Id</param>
+            <param name="localKey">Local Key</param>
+            <param name="name">Name</param>
+            <param name="bulbVersion">Bulb version</param>
+        </member>
+        <member name="M:TuyaCoreController.OwnTuyaDevice.#ctor">
+            <summary>
+            Empty constructor
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.OwnTuyaDevice.PropertyChanged">
+            <summary>
+            PropertyChanged event
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.OwnTuyaDevice.OnPropertyChanged(System.String)">
+            <summary>
+            Method to trigger added event handler
+            </summary>
+            <param name="propertyName">Property name (not needed because of [CallerMemberName] from CompilerServices</param>
+        </member>
+        <member name="M:TuyaCoreController.OwnTuyaDevice.ToString">
+            <summary>
+            ToString method
+            </summary>
+            <returns>Device's name property or if empty IP and GwId</returns>
+        </member>
+        <member name="T:TuyaCoreController.TuyaHelper">
+            <summary>
+            Helper class
+            Provides all methods to interact with Tuya light devices
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.TuyaHelper.InitLights">
+            <summary>
+            InitLights task
+            Detects the bulb version by device DPS and switch on the light
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TuyaCoreController.TuyaHelper.UnbindLights">
+            <summary>
+            Unbind all selected lights
+            No more needed
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TuyaCoreController.TuyaHelper.SetSpectrum(System.Collections.Generic.List{System.Byte})">
+            <summary>
+            Sets the audio spectrum to the corresponding light.
+            Uses the generated color pallet and the spectrum value to find the right color and sets the light device to it
+            </summary>
+            <param name="spectrum">Audio spectrum list as List of byte</param>
+        </member>
+        <member name="M:TuyaCoreController.TuyaHelper.SetDeviceToWhite(TuyaCoreController.OwnTuyaDevice)">
+            <summary>
+            Sets the provided light to white-mode
+            </summary>
+            <param name="light">light device</param>
+            <returns></returns>
+        </member>
+        <member name="M:TuyaCoreController.TuyaHelper.SetAllDevicesToColor">
+            <summary>
+            Sets all selected light devices to colour-mode
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TuyaCoreController.TuyaHelper.SetDeviceToRGBColor(TuyaCoreController.OwnTuyaDevice,System.Drawing.Color)">
+            <summary>
+            Sets the provided light device to the provided color
+            </summary>
+            <param name="light">Light device</param>
+            <param name="color">Color</param>
+        </member>
+        <member name="T:TuyaCoreController.MainWindow">
+            <summary>
+            Interaction logic for MainWindow.xaml
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.MainWindow.Instance">
+            <summary>
+            Instance property
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.MainWindow.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.MainWindow.MainWindow_Closing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Event handler to react on the MainWindow Closing event
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:TuyaCoreController.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:TuyaCoreController.Configuration">
+            <summary>
+            Configuration class to save the config as Settings.xml in the application folder
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.Instance">
+            <summary>
+            Instance property - Set in constructor
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.Devices">
+            <summary>
+            List of devices
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.UseTuyaCloud">
+            <summary>
+            Use Tuya cloud boolean
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.TuyaRegion">
+            <summary>
+            Tuya Region integer
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.TuyaAccessId">
+            <summary>
+            Tuya Access Id
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.TuyaAccessSecret">
+            <summary>
+            Tuya Access Secret
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.TuyaAnyDevice">
+            <summary>
+            Device Id of one of your devices
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.CountOfColors">
+            <summary>
+            Count of colors
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.SelectedLightIds">
+            <summary>
+            Ids of the selected lights - Easier to save than the entire OwnTuyaDevice object
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.ColorStrings">
+            <summary>
+            Colors as String - Easier to save than the entire color object
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.Colors">
+            <summary>
+            List of colors - only for internal useage
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.Delay">
+            <summary>
+            Delay
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.Configuration.SoundDevice">
+            <summary>
+            Sound Device Index
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Configuration.#ctor">
+            <summary>
+            Construtor
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.Configuration.Load">
+            <summary>
+            Static Load method
+            </summary>
+            <returns>Configuration object</returns>
+        </member>
+        <member name="M:TuyaCoreController.Configuration.Save">
+            <summary>
+            Static Save method - Saves the Configuration from the Instance property
+            </summary>
+        </member>
+        <member name="T:TuyaCoreController.ViewModel.OwnDataContext">
+            <summary>
+            DataContext class
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.Instance">
+            <summary>
+            Instance property
+            </summary>
+        </member>
+        <member name="E:TuyaCoreController.ViewModel.OwnDataContext.PropertyChanged">
+            <summary>
+            PropertyChanged event
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.ViewModel.OwnDataContext.OnPropertyChanged(System.String)">
+            <summary>
+            Method to trigger all attached event handler
+            </summary>
+            <param name="property">Not needed because of [CallerMemberName] from CompilerServices</param>
+        </member>
+        <member name="M:TuyaCoreController.ViewModel.OwnDataContext.#ctor">
+            <summary>
+            Constructor - Initialize almost all properties and loads the config
+            </summary>
+        </member>
+        <member name="M:TuyaCoreController.ViewModel.OwnDataContext.GetSoundDevices">
+            <summary>
+            Task to detection as enabled Loopback devices
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.UseTuyaCloud">
+            <summary>
+            Use Tuya cloud property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.TuyaAccessId">
+            <summary>
+            Tuya access id property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.TuyaSecret">
+            <summary>
+            Tuya access secret property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.Divider">
+            <summary>
+            Integer property to reduce the light's brightness by division
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.CountOfColors">
+            <summary>
+            Count of colors property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.CountOfSelLights">
+            <summary>
+            Count of selected lights property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.Spectrum">
+            <summary>
+            ObservableCollection property for the audio spectrum bytes 
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.TuyaRegion">
+            <summary>
+            Tuya region property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.TuyaAnyDevice">
+            <summary>
+            Property for one of your device ids.
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.Delay">
+            <summary>
+            Delay property between the color changes
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.SelectedLights">
+            <summary>
+            ObservableCollection property for the selected Lights
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.CloudLights">
+            <summary>
+            ObservableCollection property for the cloud Lights
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.OutputDevices">
+            <summary>
+            ObservableCollection property for the sound devices (key is used in the analyzer to activate the right audio output device)
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.AppState">
+            <summary>
+            AppState property to set the AppState visible to the user
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.SelectedDevice">
+            <summary>
+            Property for the selected audio device
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.SelectedIdxSelLights">
+            <summary>
+            Property for the index of the currently selected "SelectedLights" item
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.SelectLightsCmd">
+            <summary>
+            SelectedLights Command property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.GenColorPalCmd">
+            <summary>
+            Generate color pallet command property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.SaveSetCmd">
+            <summary>
+            Save Settings command property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.SaveSelectedLightsCmd">
+            <summary>
+            Save selected light command property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.StartLightShowCmd">
+            <summary>
+            Start the light show command property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.StopLightShowCmd">
+            <summary>
+            Stop the light show command property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.SelItemUpwardsCmd">
+            <summary>
+            Selected light upwards command property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.SelItemDownwardsCmd">
+            <summary>
+            Selected light downwardds command
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.ViewModel.OwnDataContext.SelItemDeleteCmd">
+            <summary>
+            Delete selected items collection property
+            </summary>
+        </member>
+    </members>
+</doc>

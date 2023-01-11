@@ -7,10 +7,17 @@ using TuyaCoreController.ViewModel;
 
 namespace TuyaCoreController
 {
+    /// <summary>
+    /// Helper class
+    /// Provides all methods to interact with Tuya light devices
+    /// </summary>
     internal class TuyaHelper
     {
-        // Init lights
-        // Create the permanent connection to avoid not needed connection establishment and turn on the lights
+        /// <summary>
+        /// InitLights task
+        /// Detects the bulb version by device DPS and switch on the light
+        /// </summary>
+        /// <returns></returns>
         public static async Task InitLights()
         {
             foreach (var light in OwnDataContext.Instance.SelectedLights)
@@ -49,7 +56,12 @@ namespace TuyaCoreController
             }
         }
 
-        // Unbinding the lights
+        /// <summary>
+        /// Unbind all selected lights
+        /// No more needed
+        /// </summary>
+        /// <returns></returns>
+        [Obsolete]
         public static Task UnbindLights()
         {
             foreach (var light in OwnDataContext.Instance.SelectedLights)
@@ -67,7 +79,11 @@ namespace TuyaCoreController
             return Task.CompletedTask;
         }
 
-        // Set every light to the provided music spectrum
+        /// <summary>
+        /// Sets the audio spectrum to the corresponding light.
+        /// Uses the generated color pallet and the spectrum value to find the right color and sets the light device to it
+        /// </summary>
+        /// <param name="spectrum">Audio spectrum list as List of byte</param>
         public static void SetSpectrum(List<byte> spectrum)
         {
             // Add default colors if the user not generated a color pallet
@@ -88,7 +104,6 @@ namespace TuyaCoreController
 
             for (int i = 0; i < spectrum.Count - 1; i++)
             {
-
                 int difColor = 255 / OwnDataContext.Instance.Colors.Count;
                 int idxColor = Convert.ToInt32(spectrum[i].ToString()) / difColor;
                 if (idxColor >= OwnDataContext.Instance.Colors.Count)
@@ -102,7 +117,11 @@ namespace TuyaCoreController
             System.Threading.Thread.Sleep(OwnDataContext.Instance.Delay);
         }
 
-        // Set provided light to White-Mode
+        /// <summary>
+        /// Sets the provided light to white-mode
+        /// </summary>
+        /// <param name="light">light device</param>
+        /// <returns></returns>
         public static async Task SetDeviceToWhite(OwnTuyaDevice light)
         {
             if (light.Connection == null)
@@ -126,7 +145,10 @@ namespace TuyaCoreController
             TuyaLocalResponse response2 = light.Connection.DecodeResponse(encryptedResponse2);
         }
 
-        // Set all selected lights to Colour-Mode
+        /// <summary>
+        /// Sets all selected light devices to colour-mode
+        /// </summary>
+        /// <returns></returns>
         public static async Task SetAllDevicesToColor()
         {
             foreach (var lightObj in OwnDataContext.Instance.SelectedLights)
@@ -163,7 +185,11 @@ namespace TuyaCoreController
             }
         }
 
-        // Set provided light to the provided color
+        /// <summary>
+        /// Sets the provided light device to the provided color
+        /// </summary>
+        /// <param name="light">Light device</param>
+        /// <param name="color">Color</param>
         public static void SetDeviceToRGBColor(OwnTuyaDevice light, Color color)
         {
             var res = Task.Run(() =>

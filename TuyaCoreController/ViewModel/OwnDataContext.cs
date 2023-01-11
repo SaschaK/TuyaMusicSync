@@ -12,9 +12,15 @@ using Un4seen.BassWasapi;
 
 namespace TuyaCoreController.ViewModel
 {
+    /// <summary>
+    /// DataContext class
+    /// </summary>
     public class OwnDataContext : INotifyPropertyChanged
     {
         #region Static fields
+        /// <summary>
+        /// Instance property
+        /// </summary>
         public static OwnDataContext Instance { get; private set; }
         #endregion
 
@@ -30,7 +36,7 @@ namespace TuyaCoreController.ViewModel
         private ObservableCollection<OwnTuyaDevice> cloudLights = new();
         private ObservableCollection<KeyValuePair<int, Un4seen.BassWasapi.BASS_WASAPI_DEVICEINFO>> outputDevices = new();
         private KeyValuePair<int, Un4seen.BassWasapi.BASS_WASAPI_DEVICEINFO> selectedDevice;
-        public List<Color> Colors { get; set; } = new();
+        internal List<Color> Colors { get; set; } = new();
         private int tuyaRegion = 0;
         private String tuyaAnyDevice = "";
         private int delay = 300;
@@ -38,7 +44,15 @@ namespace TuyaCoreController.ViewModel
         #endregion
 
         #region Event handling
+        /// <summary>
+        /// PropertyChanged event
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+        
+        /// <summary>
+        /// Method to trigger all attached event handler
+        /// </summary>
+        /// <param name="property">Not needed because of [CallerMemberName] from CompilerServices</param>
         public void OnPropertyChanged([CallerMemberName] string property = null)
         {
             if (PropertyChanged != null)
@@ -49,6 +63,9 @@ namespace TuyaCoreController.ViewModel
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Constructor - Initialize almost all properties and loads the config
+        /// </summary>
         public OwnDataContext()
         {
             Instance = this;
@@ -62,7 +79,6 @@ namespace TuyaCoreController.ViewModel
             OutputDevices.CollectionChanged += OutputDevices_CollectionChanged;
             Spectrum = new();
             Spectrum.CollectionChanged += Spectrum_CollectionChanged;
-            RetrieveLightsCmd = new();
             SelectLightsCmd = new();
             GenColorPalCmd = new();
             SaveSetCmd = new();
@@ -91,6 +107,10 @@ namespace TuyaCoreController.ViewModel
         #endregion
 
         #region Async Tasks
+        /// <summary>
+        /// Task to detection as enabled Loopback devices
+        /// </summary>
+        /// <returns></returns>
         internal Task GetSoundDevices()
         {
             for (int i = 0; i < BassWasapi.BASS_WASAPI_GetDeviceCount(); i++)
@@ -118,6 +138,9 @@ namespace TuyaCoreController.ViewModel
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Use Tuya cloud property
+        /// </summary>
         public bool UseTuyaCloud
         {
             get { return useTuyaCloud; }
@@ -128,6 +151,9 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// Tuya access id property
+        /// </summary>
         public string TuyaAccessId
         {
             get { return tuyaAccessId; }
@@ -138,12 +164,18 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// Tuya access secret property
+        /// </summary>
         public string TuyaSecret
         {
             get { return tuyaSecret; }
             set { tuyaSecret = value; }
         }
 
+        /// <summary>
+        /// Integer property to reduce the light's brightness by division
+        /// </summary>
         public int Divider
         {
             get { return divider; }
@@ -154,6 +186,9 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// Count of colors property
+        /// </summary>
         public int CountOfColors
         {
             get { return countOfColors; }
@@ -164,6 +199,9 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// Count of selected lights property
+        /// </summary>
         public int CountOfSelLights
         {
             get { return countOfSelLights; ; }
@@ -174,6 +212,9 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// ObservableCollection property for the audio spectrum bytes 
+        /// </summary>
         public ObservableCollection<byte> Spectrum
         {
             get { return spectrum; }
@@ -184,6 +225,9 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// Tuya region property
+        /// </summary>
         public int TuyaRegion
         {
             get { return tuyaRegion; }
@@ -194,6 +238,9 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// Property for one of your device ids.
+        /// </summary>
         public String TuyaAnyDevice
         {
             get { return tuyaAnyDevice; }
@@ -204,6 +251,9 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// Delay property between the color changes
+        /// </summary>
         public int Delay
         {
             get { return delay; }
@@ -214,6 +264,9 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// ObservableCollection property for the selected Lights
+        /// </summary>
         public ObservableCollection<OwnTuyaDevice> SelectedLights
         {
             get { return selectedLights; }
@@ -224,12 +277,18 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// ObservableCollection property for the cloud Lights
+        /// </summary>
         public ObservableCollection<OwnTuyaDevice> CloudLights
         {
             get { return cloudLights; }
             set { cloudLights = value; }
         }
 
+        /// <summary>
+        /// ObservableCollection property for the sound devices (key is used in the analyzer to activate the right audio output device)
+        /// </summary>
         public ObservableCollection<KeyValuePair<int, Un4seen.BassWasapi.BASS_WASAPI_DEVICEINFO>> OutputDevices
         {
             get { return outputDevices; }
@@ -240,6 +299,9 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// AppState property to set the AppState visible to the user
+        /// </summary>
         public String AppState
         {
             get { return appState; }
@@ -250,6 +312,9 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// Property for the selected audio device
+        /// </summary>
         public KeyValuePair<int, Un4seen.BassWasapi.BASS_WASAPI_DEVICEINFO> SelectedDevice
         {
             get { return selectedDevice; }
@@ -260,19 +325,48 @@ namespace TuyaCoreController.ViewModel
             }
         }
 
+        /// <summary>
+        /// Property for the index of the currently selected "SelectedLights" item
+        /// </summary>
         public int SelectedIdxSelLights { get; set; }
         #endregion
 
         #region Command Properties
-        public RetrieveLightsCommand RetrieveLightsCmd { get; set; }
+        /// <summary>
+        /// SelectedLights Command property
+        /// </summary>
         public SelectLightCommand SelectLightsCmd { get; set; }
+        /// <summary>
+        /// Generate color pallet command property
+        /// </summary>
         public GenerateColorPalletCommand GenColorPalCmd { get; set; }
+        /// <summary>
+        /// Save Settings command property
+        /// </summary>
         public SaveSettingsCommand SaveSetCmd { get; set; }
+        /// <summary>
+        /// Save selected light command property
+        /// </summary>
         public SaveSelectedLightsCommand SaveSelectedLightsCmd { get; set; }
+        /// <summary>
+        /// Start the light show command property
+        /// </summary>
         public StartLightShowCommand StartLightShowCmd { get; set; }
+        /// <summary>
+        /// Stop the light show command property
+        /// </summary>
         public StopLightShowCommand StopLightShowCmd { get; set; }
+        /// <summary>
+        /// Selected light upwards command property
+        /// </summary>
         public SelItemUpwardsCommand SelItemUpwardsCmd { get; set; }
+        /// <summary>
+        /// Selected light downwardds command
+        /// </summary>
         public SelItemDownwardsCommand SelItemDownwardsCmd { get; set; }
+        /// <summary>
+        /// Delete selected items collection property
+        /// </summary>
         public SelItemDeleteCommand SelItemDeleteCmd { get; set; }
         #endregion
 

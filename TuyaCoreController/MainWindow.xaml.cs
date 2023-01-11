@@ -1,15 +1,7 @@
-﻿using com.clusterrr.TuyaNet;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
 using TuyaCoreController.ViewModel;
 
 namespace TuyaCoreController
@@ -19,9 +11,15 @@ namespace TuyaCoreController
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        /// <summary>
+        /// Instance property
+        /// </summary>
         public static MainWindow Instance { get; set; }
         internal AudioSpectrum.Analyzer analyzer;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MainWindow()
         {
             Closing += MainWindow_Closing;
@@ -29,15 +27,23 @@ namespace TuyaCoreController
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Event handler to react on the MainWindow Closing event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
             {
+                // Disable and dispose the analyzer instance
                 if (analyzer != null)
                 {
                     analyzer.Enable = false;
                     analyzer.Free();
                 }
+
+                // Set all selected lights to white-Mode 2 times (somtimes the white-mode command is not working)
                 foreach (var item in OwnDataContext.Instance.SelectedLights)
                 {
                     var light = item;
@@ -51,7 +57,7 @@ namespace TuyaCoreController
                 Console.WriteLine(ex.Message);
             }
 
-            Process.GetCurrentProcess().Kill();
+            App.Instance.scanner.Stop();
         }
     }
 }
