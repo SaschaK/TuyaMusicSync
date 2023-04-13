@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using TuyaCoreController.ViewModel;
 
@@ -22,7 +23,14 @@ namespace TuyaCoreController
         {
             foreach (var light in OwnDataContext.Instance.SelectedLights)
             {
-                if (light.IP.ToString() != "0.0.0.0")
+                if (light.GatewayId != String.Empty)
+                {
+                    var gate = OwnDataContext.Instance.CloudLights.FirstOrDefault(a => a.DeviceId == light.GatewayId);
+                    if (gate != null)
+                        light.IP = gate.IP;
+                }
+
+                if (light.IP.ToString() != "0.0.0.0" || light.GatewayId != String.Empty)
                 {
                     var dev = new TuyaDevice(light.IP.ToString(), light.LocalKey, light.DeviceId);
                     light.Connection = dev;

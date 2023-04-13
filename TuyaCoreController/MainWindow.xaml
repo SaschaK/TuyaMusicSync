@@ -51,7 +51,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Header="Tuya Cloud Settings">
+                    <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Header="Tuya Cloud Settings" >
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
@@ -95,21 +95,23 @@
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="9*" />
+                                <ColumnDefinition Width="89*"/>
+                                <ColumnDefinition Width="98*" />
                             </Grid.ColumnDefinitions>
-                            <WrapPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
+                            <WrapPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="0,4,293,0">
                                 <TextBlock  Text="Count of colours" Width="100" HorizontalAlignment="Left"/>
                                 <TextBlock  Text="(" />
                                 <TextBlock  Text="{Binding CountOfColors}" />
                                 <TextBlock  Text=")" />
                             </WrapPanel>
-                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Reduce brightness"  VerticalAlignment="Center"/>
-                            <Slider Grid.Column="1" Grid.Row="0" Minimum="1" Maximum="10" Value="{Binding Divider}"/>
-                            <Slider Grid.Column="1" Grid.Row="1" Minimum="5" Maximum="40" Value="{Binding CountOfColors}" />
-                            <Button Grid.Column="4" Grid.Row="2" Grid.ColumnSpan="2" Content="Generate Colorpallet" Command="{Binding GenColorPalCmd}" />
-                            <TextBlock Grid.Column="0" Grid.Row="3" Text="Delay"  VerticalAlignment="Center"/>
-                            <mah:NumericUpDown Grid.Column="1" Grid.Row="3" Minimum="100" Maximum="5000" Interval="100" Value="{Binding Delay}" VerticalContentAlignment="Center" />
+                            <TextBlock Grid.Column="0" Text="Reduce brightness"  VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="0,0,293,0"/>
+                            <Slider Grid.Column="2" Grid.Row="0" Minimum="1" Maximum="10" Value="{Binding Divider}"/>
+                            <Slider Grid.Column="2" Grid.Row="1" Minimum="5" Maximum="40" Value="{Binding CountOfColors}" Margin="0,0,0,8" />
+                            <Button Grid.Column="2" Grid.Row="1" Content="Generate Colorpallet" Command="{Binding GenColorPalCmd}" Margin="0,24,0,8" Grid.RowSpan="2" />
+                            <TextBlock Grid.Column="0" Grid.Row="2" Text="Delay"  VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="0,24,293,0" Grid.RowSpan="2"/>
+                            <mah:NumericUpDown Grid.Column="2" Grid.Row="2" Minimum="100" Maximum="5000" Interval="100" Value="{Binding Delay}" VerticalContentAlignment="Center" Margin="0,19,0,8" Grid.RowSpan="2" />
+
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="3" Header="Sound settings">
@@ -248,6 +250,7 @@
                             <Button Grid.Row="1" Content="Stop the light show" Command="{Binding StopLightShowCmd}" />
                             <Button Grid.Row="2" Content="Save selected lights" Command="{Binding SaveSelectedLightsCmd}" />
                             <TextBlock Grid.Row="4" Text="{Binding AppState}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <!--<Button Content="Button" HorizontalAlignment="Left" Margin="100,128,0,0" Grid.Row="3" VerticalAlignment="Top" Click="Button_Click"/>-->
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Header="Audio-Input">

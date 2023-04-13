@@ -10,8 +10,9 @@
         "dependencies": {
           "MahApps.Metro": "2.4.9",
           "MahApps.Metro.IconPacks": "4.11.0",
-          "TuyaNet": "1.0.3",
-          "Bass.Net": "2.4.17.2"
+          "Newtonsoft.Json": "13.0.3",
+          "Bass.Net": "2.4.17.2",
+          "TuyaNet": "1.0.2.0"
         },
         "runtime": {
           "TuyaCoreController.dll": {}
@@ -189,31 +190,28 @@
           }
         }
       },
-      "Newtonsoft.Json/13.0.1": {
+      "Newtonsoft.Json/13.0.3": {
         "runtime": {
-          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
             "assemblyVersion": "13.0.0.0",
-            "fileVersion": "13.0.1.25517"
+            "fileVersion": "13.0.3.27908"
           }
         }
       },
       "System.Text.Json/4.7.2": {},
-      "TuyaNet/1.0.3": {
-        "dependencies": {
-          "Newtonsoft.Json": "13.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/TuyaNet.dll": {
-            "assemblyVersion": "1.0.2.0",
-            "fileVersion": "1.0.2.0"
-          }
-        }
-      },
       "Bass.Net/2.4.17.2": {
         "runtime": {
           "Bass.Net.dll": {
             "assemblyVersion": "2.4.17.2",
             "fileVersion": "2.4.17.2"
+          }
+        }
+      },
+      "TuyaNet/1.0.2.0": {
+        "runtime": {
+          "TuyaNet.dll": {
+            "assemblyVersion": "1.0.2.0",
+            "fileVersion": "1.0.2.0"
           }
         }
       }
@@ -253,12 +251,12 @@
       "path": "microsoft.xaml.behaviors.wpf/1.1.19",
       "hashPath": "microsoft.xaml.behaviors.wpf.1.1.19.nupkg.sha512"
     },
-    "Newtonsoft.Json/13.0.1": {
+    "Newtonsoft.Json/13.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
-      "path": "newtonsoft.json/13.0.1",
-      "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
+      "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
+      "path": "newtonsoft.json/13.0.3",
+      "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
     },
     "System.Text.Json/4.7.2": {
       "type": "package",
@@ -267,14 +265,12 @@
       "path": "system.text.json/4.7.2",
       "hashPath": "system.text.json.4.7.2.nupkg.sha512"
     },
-    "TuyaNet/1.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Sc19fp54nsqVJnemOYQU11b6PsPm7fPZMIsNn9XT8EXdigA4mazTnIOhQNOyG4Yl5BlvVP4+cC8tdOMiGRtMlg==",
-      "path": "tuyanet/1.0.3",
-      "hashPath": "tuyanet.1.0.3.nupkg.sha512"
-    },
     "Bass.Net/2.4.17.2": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TuyaNet/1.0.2.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

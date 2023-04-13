@@ -1,4 +1,7 @@
 ﻿using com.clusterrr.TuyaNet;
+using ControlzEx.Standard;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +28,10 @@ namespace TuyaCoreController
         internal System.Threading.Thread tScanner;
         // TuyaScanner for scanning the network for Tuya broadcasts
         internal TuyaScanner scanner = new TuyaScanner();
+        /// <summary>
+        /// Global API property
+        /// </summary>
+        public TuyaApi Api { get; private set; }
 
         /// <summary>
         /// Construtor
@@ -46,9 +53,9 @@ namespace TuyaCoreController
             if (Config.UseTuyaCloud && Config.TuyaAccessId != String.Empty && Config.TuyaAccessSecret != String.Empty)
             {
                 // API instance
-                var api = new TuyaApi(((TuyaApi.Region)Config.TuyaRegion), Config.TuyaAccessId, Config.TuyaAccessSecret);
+                Api = new TuyaApi(((TuyaApi.Region)Config.TuyaRegion), Config.TuyaAccessId, Config.TuyaAccessSecret);
                 // List of all devices
-                var devices = api.GetAllDevicesInfoAsync(anyDeviceId: Config.TuyaAnyDevice);
+                var devices = Api.GetAllDevicesInfoAsync(anyDeviceId: Config.TuyaAnyDevice);
                 var lstDevices = new List<TuyaDeviceApiInfo>(devices.Result);
 
                 // Foreach device in lstDevices with Category "dj" (light)
@@ -56,14 +63,14 @@ namespace TuyaCoreController
                 {
                     TuyaCoreController.MainWindow.Instance.Dispatcher.BeginInvoke(delegate ()
                     {
-                        String ip = "0.0.0.0";
+                        String ip = "127.0.0.1";
                         // if the device is already known, try to use the saved IP to get it's only state via Ping-Request
                         var knownDev = Config.Devices.FirstOrDefault(a => a.DeviceId == device.Id);
                         if (knownDev != null)
                         {
                             ip = knownDev.IP;
                             Ping ping = new Ping();
-                            if (ip != "0.0.0.0")
+                            if (ip != "127.0.0.1")
                             {
                                 var res = ping.Send(ip, 1000);
                                 if (res.Status == IPStatus.Success)
@@ -75,10 +82,16 @@ namespace TuyaCoreController
                             {
                                 knownDev.State = OnlineState.Offline;
                             }
+
                             OwnDataContext.Instance.CloudLights.Add(knownDev);
                         }
                         else
-                            OwnDataContext.Instance.CloudLights.Add(new OwnTuyaDevice("0.0.0.0", device.Id, device.LocalKey, device.Name));
+                        {
+                            knownDev = new OwnTuyaDevice("127.0.0.1", device.Id, device.LocalKey, device.Name);
+                            OwnDataContext.Instance.CloudLights.Add(knownDev);
+                        }
+                        knownDev.DeviceCategory = device.Category;
+                        GetGatewayId(device, knownDev);
                     });
                 }
                 TuyaCoreController.MainWindow.Instance.Dispatcher.BeginInvoke(delegate ()
@@ -101,6 +114,36 @@ namespace TuyaCoreController
             return Task.CompletedTask;
         }
 
+        private async void GetGatewayId(TuyaDeviceApiInfo device, OwnTuyaDevice knownDev)
+        {
+            var devInfoJSON = await Api.RequestAsync(TuyaApi.Method.GET, $"/v1.1/iot-03/devices/{device.Id}");
+            knownDev.DeviceInfoJSON = devInfoJSON;
+            var data = (JObject)JsonConvert.DeserializeObject(devInfoJSON);
+
+            knownDev.GatewayId = data.GetValue("gateway_id").Value<string>();
+
+            var online = data.GetValue("online").Value<Boolean>();
+            //var virtId = data.GetValue("online").Value<Boolean>();
+            if (online == true && knownDev.IP == "127.0.0.1")
+            {
+                knownDev.State = OnlineState.Online;
+            }
+
+            foreach (var item in OwnDataContext.Instance.CloudLights)
+            {
+                if (item.GatewayId != String.Empty)
+                {
+                    var gate = OwnDataContext.Instance.CloudLights.FirstOrDefault(a => a.DeviceId == item.GatewayId);
+                    if (gate != null)
+                    {
+                        gate.IsGateway = true;
+                    }
+                    if (item.State == OnlineState.Online && item.GatewayId != String.Empty)
+                        item.State = OnlineState.Online_via_Gate;
+                }
+            }
+        }
+
         /// <summary>
         /// Gets the light device IP from background Thread
         /// </summary>
@@ -108,6 +151,7 @@ namespace TuyaCoreController
         /// <param name="e"></param>
         private void Scanner_OnNewDeviceInfoReceived(object sender, TuyaDeviceScanInfo e)
         {
+
             if (Config.UseTuyaCloud)
             {
                 var ownDev = OwnDataContext.Instance.CloudLights.FirstOrDefault(a => a.DeviceId == e.GwId);

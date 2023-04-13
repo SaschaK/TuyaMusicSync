@@ -50,7 +50,7 @@ namespace TuyaCoreController.Commands
             await TuyaHelper.InitLights();
             await TuyaHelper.SetAllDevicesToColor();
             System.Threading.Thread.Sleep(2000);
-            MainWindow.Instance.analyzer = new AudioSpectrum.Analyzer(OwnDataContext.Instance.SelectedLights.Count);
+            MainWindow.Instance.analyzer = new AudioSpectrum.Analyzer(OwnDataContext.Instance.SelectedLights.Count + 1);
             MainWindow.Instance.analyzer.Enable = true;
             OwnDataContext.Instance.StopLightShowCmd.ChangeExecuteable();
             OwnDataContext.Instance.AppState = "Running...";

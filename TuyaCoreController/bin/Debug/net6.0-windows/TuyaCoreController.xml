@@ -17,6 +17,11 @@
             Configuration
             </summary>
         </member>
+        <member name="P:TuyaCoreController.App.Api">
+            <summary>
+            Global API property
+            </summary>
+        </member>
         <member name="M:TuyaCoreController.App.#ctor">
             <summary>
             Construtor
@@ -428,6 +433,11 @@
             Online state
             </summary>
         </member>
+        <member name="F:TuyaCoreController.Enums.OnlineState.Online_via_Gate">
+            <summary>
+            Online via Gateway
+            </summary>
+        </member>
         <member name="T:TuyaCoreController.RGB_HSV_Converter">
             <summary>
             Manually translated python lib to convert the colors correctly
@@ -563,6 +573,26 @@
         <member name="P:TuyaCoreController.OwnTuyaDevice.LastColor">
             <summary>
             Last Color property
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.DeviceInfoJSON">
+            <summary>
+            DeviceInfo as JSON from Tuya Cloud
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.GatewayId">
+            <summary>
+            Gateway Id
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.IsGateway">
+            <summary>
+            Device is a gateway device
+            </summary>
+        </member>
+        <member name="P:TuyaCoreController.OwnTuyaDevice.DeviceCategory">
+            <summary>
+            Device Category (Tuya Cloud)
             </summary>
         </member>
         <member name="P:TuyaCoreController.OwnTuyaDevice.Connection">

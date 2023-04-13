@@ -1,7 +1,10 @@
-﻿using MahApps.Metro.Controls;
+﻿using com.clusterrr.TuyaNet;
+using MahApps.Metro.Controls;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
+using System.Windows.Media.Media3D;
 using TuyaCoreController.ViewModel;
 
 namespace TuyaCoreController
@@ -59,5 +62,32 @@ namespace TuyaCoreController
 
             App.Instance.scanner.Stop();
         }
+
+        /*private async void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+            foreach (var light in OwnDataContext.Instance.CloudLights)
+            {
+
+                if (light.GatewayId != String.Empty)
+                {
+                    var gate = OwnDataContext.Instance.CloudLights.FirstOrDefault(a => a.DeviceId == light.GatewayId);
+                    if (gate != null)
+                    {
+                        var gateRes = await App.Instance.Api.RequestAsync(TuyaApi.Method.GET, $"/v1.0/devices/{gate.DeviceId}/functions");
+                        var gateRes2 = await App.Instance.Api.RequestAsync(TuyaApi.Method.GET, $"/v1.0/functions/{gate.DeviceCategory}");
+                        //light.IP = gate.IP;
+                        //light.LocalKey= gate.LocalKey;
+                    }
+
+                    var dev = new TuyaDevice(light.IP, light.LocalKey, light.DeviceId);
+                    light.Connection = dev;
+                    dev.PermanentConnection = true;
+
+                    var res = await App.Instance.Api.RequestAsync(TuyaApi.Method.GET, $"/v1.0/iot-03/devices/{light.DeviceId}/status");
+                    //var dps = await dev.GetDpsAsync();
+                }
+            }
+        }*/
     }
 }

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using TuyaCoreController.Commands;
 using Un4seen.BassWasapi;
@@ -36,7 +37,7 @@ namespace TuyaCoreController.ViewModel
         private ObservableCollection<OwnTuyaDevice> cloudLights = new();
         private ObservableCollection<KeyValuePair<int, Un4seen.BassWasapi.BASS_WASAPI_DEVICEINFO>> outputDevices = new();
         private KeyValuePair<int, Un4seen.BassWasapi.BASS_WASAPI_DEVICEINFO> selectedDevice;
-        internal List<Color> Colors { get; set; } = new();
+        public List<Color> Colors { get; set; } = new();
         private int tuyaRegion = 0;
         private String tuyaAnyDevice = "";
         private int delay = 300;
@@ -329,6 +330,8 @@ namespace TuyaCoreController.ViewModel
         /// Property for the index of the currently selected "SelectedLights" item
         /// </summary>
         public int SelectedIdxSelLights { get; set; }
+
+        public Boolean Debug { get; set; } = false;
         #endregion
 
         #region Command Properties

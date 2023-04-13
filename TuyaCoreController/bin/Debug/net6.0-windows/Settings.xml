@@ -2,10 +2,29 @@
 <Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Devices />
   <UseTuyaCloud>true</UseTuyaCloud>
-  <TuyaRegion>0</TuyaRegion>
+  <TuyaRegion>3</TuyaRegion>
+  <TuyaAccessId>tuyaAccessId</TuyaAccessId>
+  <TuyaAccessSecret>Secret</TuyaAccessSecret>
+  <TuyaAnyDevice>devId</TuyaAnyDevice>
   <CountOfColors>0</CountOfColors>
   <SelectedLightIds />
-  <ColorStrings />
+  <ColorStrings>
+    <string>255,0,0</string>
+    <string>204,51,0</string>
+    <string>153,102,0</string>
+    <string>102,153,0</string>
+    <string>51,204,0</string>
+    <string>0,255,0</string>
+    <string>0,204,51</string>
+    <string>0,153,102</string>
+    <string>0,102,153</string>
+    <string>0,51,204</string>
+    <string>0,0,255</string>
+    <string>51,0,204</string>
+    <string>102,0,153</string>
+    <string>153,0,102</string>
+    <string>204,0,51</string>
+  </ColorStrings>
   <Delay>300</Delay>
-  <SoundDevice>0</SoundDevice>
+  <SoundDevice>25</SoundDevice>
 </Configuration>

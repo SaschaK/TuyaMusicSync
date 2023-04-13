@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows8.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <PlatformTarget>x86</PlatformTarget>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -13,15 +13,22 @@
     <Optimize>True</Optimize>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
-    <PackageReference Include="TuyaNet" Version="1.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Bass.Net">
       <HintPath>..\..\..\..\Downloads\Bass24.Net\Bass.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="TuyaNet">
+      <HintPath>..\..\..\..\Downloads\tuyanet-main\tuyanet-main\bin\Debug\netstandard2.0\TuyaNet.dll</HintPath>
     </Reference>
   </ItemGroup>
 

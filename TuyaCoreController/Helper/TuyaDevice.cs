@@ -93,6 +93,26 @@ namespace TuyaCoreController
         }
 
         /// <summary>
+        /// DeviceInfo as JSON from Tuya Cloud
+        /// </summary>
+        public String DeviceInfoJSON { get; set; }
+
+        /// <summary>
+        /// Gateway Id
+        /// </summary>
+        public String GatewayId { get; set; }
+
+        /// <summary>
+        /// Device is a gateway device
+        /// </summary>
+        public Boolean IsGateway { get; set; }
+
+        /// <summary>
+        /// Device Category (Tuya Cloud)
+        /// </summary>
+        public String DeviceCategory { get; set; }
+
+        /// <summary>
         /// Connection property to allow a permanent connection to the device
         /// </summary>
         internal TuyaDevice Connection { get; set; }

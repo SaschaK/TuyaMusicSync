@@ -116,6 +116,7 @@ namespace AudioSpectrum
             {
                 OwnDataContext.Instance.Spectrum.Add(item);
             }
+            OwnDataContext.Instance.Spectrum.RemoveAt(OwnDataContext.Instance.Spectrum.Count - 1);
             TuyaHelper.SetSpectrum(_spectrumdata);
             _spectrumdata.Clear();
 
